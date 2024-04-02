@@ -30,21 +30,15 @@ curl 'http://127.0.0.1:5000/auth/oauth2/token?grant_type=password&client_id=docu
 
 Refresh once expired:
 ```shell
-curl --header 'Authorization: Bearer oqvUpO4aKg5KgYK2EUY2HPsbOlAyEZ' 'http://127.0.0.1:5000/api/v1/users/me'
+curl 'http://127.0.0.1:5000/auth/oauth2/token?grant_type=refresh_token' --user 'documentation:' -F 'refresh_token=3UTjLPlnomJPx5FvgsC2wS7GfVNrfH'
 ```
 ```json
 {
-    "id": 1,
-    "username": "root",
-    "email": "root@localhost",
-    "first_name": "",
-    "middle_name": "",
-    "last_name": "",
-    "is_active": true,
-    "is_regular_user": true,
-    "is_admin": true,
-    "created": "2016-10-20T14:00:35.912576+00:00",
-    "updated": "2016-10-20T14:00:35.912602+00:00"
+    "token_type": "Bearer",
+    "access_token": "FwaS90XWwBpM1sLeAytaGGTubhHaok",
+    "refresh_token": "YD5Rc1FojKX1ZY9vltMSnFxhm9qpbb",
+    "expires_in": 3600,
+    "scope": "auth:read auth:write users:read users:write teams:read teams:write"
 }
 ```
 
