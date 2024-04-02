@@ -1,0 +1,9 @@
+[
+    {
+        "access_token": "pWsIkHvfmLbU42jMl4xwyjJAASNMRN",
+        "expires_in": 3600,
+        "token_type": "Bearer",
+        "scope": "auth:read auth:write users:read users:write teams:read teams:write",
+        "refresh_token": "ywS5hEkmYR4Ov3u1i3ayLTKpDBb7Zm"
+    }
+]
