@@ -2,13 +2,11 @@ from loguru import logger
 import sys
 
 # 配置Loguru日志器
-# 将日志输出到控制台，设置日志级别为DEBUG
-logger.add(sys.stdout, format="{time} {level} {message}", level="INFO")
+# 将日志输出到控制台
+logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
 
 # 将日志输出到文件，每天轮转一次，保留7天的日志文件
-logger.add(
-    "logs/explorer_{time}.log", rotation="1 day", retention="7 days", level="DEBUG"
-)
+# logger.add(   "logs/explorer_{time}.log", rotation="1 day", retention="7 days", level="DEBUG")
 
 # Export logger
 loguru_looger = logger

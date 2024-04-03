@@ -165,3 +165,7 @@ curl --header 'Authorization: Bearer pWsIkHvfmLbU42jMl4xwyjJAASNMRN' 'http://127
     }
 ]
 ```
+
+## NOTE
+- 由于时间原因暂时不实现多用户切换,所有操作均由admin完成.
+- 暂未实现PATCH方法

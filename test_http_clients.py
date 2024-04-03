@@ -29,3 +29,15 @@ resp = get_user_detail_by_id(access_token=acc_token, id=userid)
 print(resp)
 
 list_user(acc_token, "root")
+
+list_teams(access_token=acc_token, username="root")
+resp = create_team(acc_token, "root", teamname="testTeam123")
+print(resp)
+team_title, team_id = resp["title"], resp["id"]
+add_member_to_team(acc_token, team_id, userid, False)
+list_members_in_team(acc_token, team_id)
+list_teams(access_token=acc_token, username="root")
+delete_member_from_team(acc_token, team_id, userid)
+list_members_in_team(acc_token, team_id)
+del_team_by_id(acc_token, team_id)
+list_teams(access_token=acc_token, username="root")

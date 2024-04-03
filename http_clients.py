@@ -34,6 +34,7 @@ def request_auth_token(username: str, password: str):
         else:
             # Unhandled exception or error
             logger.warning(f"Unhandled exception: Code {code}")
+            return None
     except Exception as e:
         logger.exception(f"捕获到未处理的异常：{e}")
 
@@ -58,6 +59,7 @@ def refresh_token(username: str, refresh_token: str):
         else:
             # Unhandled exception or error
             logger.warning(f"Unhandled exception: Code {code}")
+            return None
     except Exception as e:
         logger.exception(f"捕获到未处理的异常：{e}")
 
@@ -111,7 +113,9 @@ def create_user(access_token, form_dict: dict):
         client = http_requests.SimpleFlaskClientWithHeaders()
         code, resp = client.post(endpoint, headers=header, data=form_dict)
         if code == 200:
-            logger.info(f"User {resp['username']} created:{resp}")
+            logger.info(f"User {resp['username']} created")
+            # TODO activate the user
+            # TODO get_user_detail_by_id
             return resp
         else:
             # Unhandled exception or error
@@ -173,7 +177,7 @@ def list_teams(access_token, username):
     try:
         if code == 200:
             logger.info(
-                f"Get users list:{[(team['id'],team['title']) for team in resp]}"
+                f"Get teams list:{[(team['id'],team['title']) for team in resp]}"
             )
             return resp
         else:
@@ -215,7 +219,10 @@ def get_team_detail_by_id(access_token, id: int) -> bool:
 def patch_team_by_id():
     """
     Not implemented yet
+    NOTE Only admin can do
+    TODO Impment it when multi-user required
     """
+
     pass
 
 
@@ -233,7 +240,7 @@ def del_team_by_id(access_token, id: int) -> bool:
     try:
         client = http_requests.SimpleFlaskClientWithHeaders()
         code, resp = client.delete(endpoint, headers=header)
-        if code == 204:
+        if code == 204 or code == 200:
             logger.info(f"Team {id} deleted, return nothing")
             return True
         elif code == 404:
@@ -259,7 +266,7 @@ def list_members_in_team(access_token, id: int):
     data = {"limit": 100}
     try:
         client = http_requests.SimpleFlaskClientWithHeaders()
-        code, resp = client.get(endpoint, headers=header, data=data)
+        code, resp = client.get(endpoint, headers=header, params=data)
         if code == 200:
             logger.info(
                 f"Team {id} has the following members:{[(user['user']['id'],user['user']['username']) for user in resp]}"
@@ -282,7 +289,7 @@ def add_member_to_team(
     """
     NOTE: Only admin can do
     """
-    endpoint = f"{base_endpoint}/teams/{str(team_id)}/members"
+    endpoint = f"{base_endpoint}/teams/{str(team_id)}/members/"
     token = f"Bearer {access_token}"
     header = {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -320,7 +327,7 @@ def delete_member_from_team(access_token, team_id: int, user_id: int):
     try:
         client = http_requests.SimpleFlaskClientWithHeaders()
         code, resp = client.delete(endpoint, headers=header)
-        if code == 204:
+        if code == 204 or code == 200:
             logger.info(f"User {user_id} has been removed to team {team_id}")
             return True
         elif code == 404:
@@ -334,7 +341,7 @@ def delete_member_from_team(access_token, team_id: int, user_id: int):
         logger.exception(f"Unhandled exception:{e}")
 
 
-def create_team(access_token, username):
+def create_team(access_token, username, teamname):
     """
     Any activate user is OK
     """
@@ -347,7 +354,7 @@ def create_team(access_token, username):
     logger.info(f"User {username} tries to create a team")
     try:
         client = http_requests.SimpleFlaskClientWithHeaders()
-        code, resp = client.post(endpoint, headers=header)
+        code, resp = client.post(endpoint, headers=header, data={"title": teamname})
         if code == 200:
             logger.info(f"Team {resp['title']} created")
             return resp
