@@ -139,6 +139,7 @@ def do_api(op_name):
             logger.info(
                 f"No user can be removed from this team:{team['title']}, skip deleting members in team"
             )
+            return
         user = random.choice([user for user in team["members"] if user["id"] != 1])
         if delete_member_from_team(acc_token, team["id"], user["id"]):
             # Update teamlist
