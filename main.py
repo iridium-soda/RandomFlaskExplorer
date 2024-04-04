@@ -96,7 +96,7 @@ def do_api(op_name):
         team = teams_list[team_index]
         if del_team_by_id(acc_token, team["id"]):
             # Update teamlist
-            _ = teams_list.pop[team_index]
+            _ = teams_list.pop(team_index)
         else:
             logger.warning(f"Remove team {team['title']} failed")
 
