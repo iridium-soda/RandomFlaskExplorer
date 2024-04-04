@@ -84,13 +84,13 @@ def do_api(op_name):
         list_teams(acc_token, current_user_name)
     elif op_name == "get_team_detail_by_id":
         if len(teams_list) == 0:
-            logger.info(f"No team listed, skip listing teams")
+            logger.info(f"No team listed, skip listing teams: {teams_list}")
             return
         team = random.choice(teams_list)
         get_team_detail_by_id(acc_token, team["id"])
     elif op_name == "del_team_by_id":
         if len(teams_list) == 0:
-            logger.info(f"No team listed, skip deleting teams")
+            logger.info(f"No team listed, skip deleting teams: {teams_list}")
             return
         team_index = random.randint(0, len(teams_list) - 1)
         team = teams_list[team_index]
@@ -102,13 +102,13 @@ def do_api(op_name):
 
     elif op_name == "list_members_in_team":
         if len(teams_list) == 0:
-            logger.info(f"No team listed, skip listing members in team")
+            logger.info(f"No team listed, skip listing members in team: {teams_list}")
             return
         team = random.choice(teams_list)
         list_members_in_team(acc_token, team["id"])
     elif op_name == "add_member_to_team":
         if len(teams_list) == 0:
-            logger.info(f"No team listed, skip adding members in team")
+            logger.info(f"No team listed, skip adding members in team: {teams_list}")
             return
         team_index = random.randint(0, len(teams_list) - 1)
         team = teams_list[team_index]
@@ -130,7 +130,7 @@ def do_api(op_name):
             )
     elif op_name == "delete_member_from_team":
         if len(teams_list) == 0:
-            logger.info(f"No team listed, skip deleting members in team")
+            logger.info(f"No team listed, skip deleting members in team: {teams_list}")
             return
         team_index = random.randint(0, len(teams_list) - 1)
         team = teams_list[team_index]
