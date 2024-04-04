@@ -36,6 +36,8 @@ current_user_name = "root"  # TODO To be implemented when adding multi-users sup
 # [(1, 'root'), (2, 'documentation'), (3, 'user'), (4, 'internal')]
 # 提权好像是用PATCH
 # NOTE All commands are executed by admin
+MAX_USERS_NUM = 50
+# MAX_TEAMS_NUM = 20
 
 
 def do_api(op_name):
@@ -51,7 +53,7 @@ def do_api(op_name):
     elif op_name == "list_user":
         list_user(acc_token, current_user_name)
     elif op_name == "create_user":
-        if len(users_list) >= 20:
+        if len(users_list) >= MAX_USERS_NUM:
             logger.info(f"Too many users(over 20), skip the signup operation.")
             return
         password = gen_string()
@@ -225,6 +227,6 @@ if __name__ == "__main__":
     acc_token, ref_token = resp["access_token"], resp["refresh_token"]
     while True:  # Main loop
         # Random time interval
-        time.sleep(random.randint(1, 3))
+        time.sleep(random.uniform(0.2, 3))
         chosen_function = random.choice(op_list)
         do_api(chosen_function)
