@@ -164,6 +164,7 @@ def do_api(op_name):
                     for member in resp["members"]
                 ],
             }
+            teams_list.append(team)
         else:
             logger.warning(f"Failed to create team {teamname}")
     else:
