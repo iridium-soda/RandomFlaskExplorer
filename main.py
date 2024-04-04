@@ -6,6 +6,7 @@ from logger_config import loguru_looger as logger
 import random
 from http_clients import *
 import os
+import time
 import string
 
 op_list = [
@@ -222,6 +223,6 @@ if __name__ == "__main__":
     acc_token, ref_token = resp["access_token"], resp["refresh_token"]
     while True:  # Main loop
         # Random time interval
-        os.sleep(random.randint(3, 10))
+        time.sleep(random.randint(1, 3))
         chosen_function = random.choice(op_list)
-        do_api(chosen_function, acc_token, ref_token, current_user_name, "q")
+        do_api(chosen_function)
